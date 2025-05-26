@@ -1,14 +1,13 @@
-import React, { use } from "react";
+import React from "react";
 import {
   Navbar,
   MobileNav,
   Typography,
   Button,
   IconButton,
-  Card,
 } from "@material-tailwind/react";
 import { supabase } from "../utils/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export function StickyNavbar() {
   const navigate = useNavigate();
@@ -34,56 +33,56 @@ export function StickyNavbar() {
       <Typography
         as="li"
         color="blue-gray"
-        className="p-1 font-normal text-base group"
+        className="p-1 font-normal text-base group hover:cursor-pointer"
       >
-        <a href="#" className="flex items-center gap-2">
+        <Link to={"/dashboard"} className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
             🏠 {/* Replace with any icon */}
           </span>
           Dashboard
-        </a>
+        </Link>
       </Typography>
 
       {/* Resources */}
       <Typography
         as="li"
         color="blue-gray"
-        className="p-1 font-normal text-base group"
+        className="p-1 font-normal text-base group hover:cursor-pointer"
       >
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/resources" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
             📚 {/* Replace with any icon */}
           </span>
           Resources
-        </a>
+        </Link>
       </Typography>
 
       {/* Calender */}
       <Typography
         as="li"
         color="blue-gray"
-        className="p-1 font-normal text-base group"
+        className="p-1 font-normal text-base group hover:cursor-pointer"
       >
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/event-planner" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
             📅 {/* Replace with any icon */}
           </span>
-          Calender
-        </a>
+          Event Planner
+        </Link>
       </Typography>
 
       {/* Chat */}
       <Typography
         as="li"
         color="blue-gray"
-        className="p-1 font-normal text-base group"
+        className="p-1 font-normal text-base group hover:cursor-pointer"
       >
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/chat" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
             💬 {/* Replace with any icon */}
           </span>
           Chat
-        </a>
+        </Link>
       </Typography>
     </ul>
   );

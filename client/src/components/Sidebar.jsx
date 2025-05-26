@@ -4,6 +4,7 @@ import { BiMessage } from "react-icons/bi";
 import { AiOutlineFileText } from "react-icons/ai";
 import { BiHomeCircle } from "react-icons/bi";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -15,7 +16,8 @@ const Sidebar = () => {
       </div>
       <nav class="flex flex-col gap-y-4 gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
         {/* Dashboard */}
-        <div
+        <Link
+          to={"/dashboard"}
           role="button"
           class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
         >
@@ -23,10 +25,11 @@ const Sidebar = () => {
             <BiHomeCircle />
           </div>
           Dashboard
-        </div>
+        </Link>
 
         {/* Resources */}
-        <div
+        <Link
+          to={"/resources"}
           role="button"
           class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
         >
@@ -34,10 +37,11 @@ const Sidebar = () => {
             <AiOutlineFileText />
           </div>
           Resources
-        </div>
+        </Link>
 
         {/* Chat */}
-        <div
+        <Link
+          to={"/chat"}
           role="button"
           class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
         >
@@ -50,21 +54,23 @@ const Sidebar = () => {
               <span class="">14</span>
             </div>
           </div>
-        </div>
+        </Link>
 
-        {/* Calender */}
-        <div
+        {/* Event Planner */}
+        <Link
+          to={"/event-planner"}
           role="button"
           class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
         >
           <div class="grid mr-4 place-items-center text-xl font-extrabold">
             <SlCalender />
           </div>
-          Calender
-        </div>
+          Event Planner
+        </Link>
 
         {/* Settings */}
-        <div
+        <Link
+          to={"/settings"}
           role="button"
           class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
         >
@@ -72,7 +78,7 @@ const Sidebar = () => {
             <FcSettings className="hover:animate-spin" />
           </div>
           Settings
-        </div>
+        </Link>
       </nav>
     </div>
   );
