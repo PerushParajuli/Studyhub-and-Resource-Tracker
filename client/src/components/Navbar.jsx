@@ -1,25 +1,36 @@
-import React from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import React, { useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   IconButton,
 } from "@material-tailwind/react";
 import { supabase } from "../utils/supabaseClient";
 import { useNavigate, Link } from "react-router-dom";
+import { useSideBarContext } from "../context/SidebarContext";
 
 export function StickyNavbar() {
   const navigate = useNavigate();
+  const { expand, setExpand } = useSideBarContext();
+
+  const toggleExpand = () => {
+    setExpand(!expand);
+  };
+
+  // Function to handle user logout
   const logout = () => {
     const { error } = supabase.auth.signOut();
     if (!error) {
-      navigate("/");
+      navigate("/"); // Redirect to home page after logout
     }
   };
 
+  // State to manage the mobile navigation menu toggle
   const [openNav, setOpenNav] = React.useState(false);
 
+  // Effect to close the mobile navigation menu on window resize
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -27,9 +38,10 @@ export function StickyNavbar() {
     );
   }, []);
 
+  // Navigation list for desktop and mobile views
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {/* Dashboard */}
+      {/* Dashboard Link */}
       <Typography
         as="li"
         color="blue-gray"
@@ -37,13 +49,13 @@ export function StickyNavbar() {
       >
         <Link to={"/dashboard"} className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
-            🏠 {/* Replace with any icon */}
+            🏠 {/* Icon for Dashboard */}
           </span>
           Dashboard
         </Link>
       </Typography>
 
-      {/* Resources */}
+      {/* Resources Link */}
       <Typography
         as="li"
         color="blue-gray"
@@ -51,13 +63,13 @@ export function StickyNavbar() {
       >
         <Link to="/resources" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
-            📚 {/* Replace with any icon */}
+            📚 {/* Icon for Resources */}
           </span>
           Resources
         </Link>
       </Typography>
 
-      {/* Calender */}
+      {/* Event Planner Link */}
       <Typography
         as="li"
         color="blue-gray"
@@ -65,13 +77,13 @@ export function StickyNavbar() {
       >
         <Link to="/event-planner" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
-            📅 {/* Replace with any icon */}
+            📅 {/* Icon for Event Planner */}
           </span>
           Event Planner
         </Link>
       </Typography>
 
-      {/* Chat */}
+      {/* Chat Link */}
       <Typography
         as="li"
         color="blue-gray"
@@ -79,7 +91,7 @@ export function StickyNavbar() {
       >
         <Link to="/chat" className="flex items-center gap-2">
           <span className="opacity-0 translate-x-[-10px] group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
-            💬 {/* Replace with any icon */}
+            💬 {/* Icon for Chat */}
           </span>
           Chat
         </Link>
@@ -89,11 +101,20 @@ export function StickyNavbar() {
 
   return (
     <div className="max-h-[768px]">
+      {/* Navbar container */}
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-8 shadow-none">
         <div className="flex items-center text-blue-gray-900 ">
-          <div className="flex items-center gap-4 ml-auto">
-            <div className="mr-4 hidden lg:block">{navList}</div>
-            <div className="flex items-center">
+          <div className="w-full flex items-center justify-between gap-4 ">
+            {/* GiHamburgerMenu Icon */}
+            <button onClick={toggleExpand} className="hidden lg:block">
+              <GiHamburgerMenu className="text-3xl" />
+            </button>
+
+            <div className="flex items-center gap-x-8">
+              {/* Desktop Navigation */}
+              <div className="hidden lg:block">{navList}</div>
+
+              {/* Logout Button for Desktop */}
               <Button
                 variant="text"
                 size="sm"
@@ -103,6 +124,8 @@ export function StickyNavbar() {
                 <span>Log Out</span>
               </Button>
             </div>
+
+            {/* Mobile Navigation Toggle Button */}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -110,6 +133,7 @@ export function StickyNavbar() {
               onClick={() => setOpenNav(!openNav)}
             >
               {openNav ? (
+                // Close Icon for Mobile Menu
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -125,6 +149,7 @@ export function StickyNavbar() {
                   />
                 </svg>
               ) : (
+                // Hamburger Icon for Mobile Menu
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -142,9 +167,12 @@ export function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+
+        {/* Mobile Navigation Menu */}
+        <Collapse open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
+            {/* Logout Button for Mobile */}
             <Button
               fullWidth
               variant="text"
@@ -155,7 +183,7 @@ export function StickyNavbar() {
               <span>Log Out</span>
             </Button>
           </div>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );
